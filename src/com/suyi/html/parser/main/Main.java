@@ -27,18 +27,18 @@ public class Main {
 	
 	private void load() {
 		// TODO Auto-generated method stub
-		Channel mChannel = new Channel("http://2016zv.com/", "tupianqu/yazhou");
+		Channel mChannel = new Channel("http://www.2016zv.com/", "tupianqu/yazhou",4);
 		
 //		下载image持续
-		if (isLoadImage == 0) {
+		if (isLoadImage == 1) {
 			 fixedThreadPool = Executors.newFixedThreadPool(loadImageThreadCache);
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < loadImageThreadCache*3; i++) {
 				fixedThreadPool.execute(new LoadImageRunnable(listForImage, mChannel, i));//
 			}
 		}
 		
 //		添加任务
-		final LoadImagePageRunnable mLoadImagePage = new LoadImagePageRunnable(mChannel,listForImage);
+		final LoadImagePageRunnable mLoadImagePage = new LoadImagePageRunnable(mChannel,listForImage,loadImageThreadCache);
 		Thread mThreadforpage = new Thread(mLoadImagePage);
 		mThreadforpage.setPriority(10);
 		mThreadforpage.start();

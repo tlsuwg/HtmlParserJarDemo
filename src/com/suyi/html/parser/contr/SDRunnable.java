@@ -8,7 +8,7 @@ public class SDRunnable implements Runnable{
 	long freePartitionSpace = diskPartition.getFreeSpace();
 	long usablePatitionSpace = diskPartition.getUsableSpace();
 
-	long sizeG = 1024 * 1024 * 1024;
+	long sizeM = 1024 * 1024 ;
 	static long leftSize = 6;// 剩余
 	LoadImagePageRunnable mLoadImagePage;
 	
@@ -20,22 +20,22 @@ public class SDRunnable implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("磁盘" + totalCapacity / sizeG + "G;可以使用"
-				+ freePartitionSpace / sizeG + "G");
+		System.out.println("磁盘" + totalCapacity / sizeM + "M;可以使用"
+				+ freePartitionSpace / sizeM + "");
 
 		while (true) {
 			long freePartitionSpaceNow = diskPartition.getFreeSpace();
 			long usablePatitionSpaceNow = diskPartition
 					.getUsableSpace();
-			if (freePartitionSpaceNow / (sizeG) < 6) {
+			if (freePartitionSpaceNow / (sizeM) < 6) {
 				mLoadImagePage.stop();
 			}
 
 			System.out.println("使用："
-					+ (usablePatitionSpaceNow - usablePatitionSpace)/ sizeG + "G");
+					+ (usablePatitionSpaceNow - usablePatitionSpace)/ sizeM + "M");
 
 			try {
-				Thread.sleep(1000 * 5);
+				Thread.sleep(1000 * 45);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

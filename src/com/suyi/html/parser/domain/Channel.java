@@ -6,11 +6,12 @@ import java.util.List;
 public class Channel {
 	public List<Page> list = new ArrayList<Page>();
 	public String Hosturl, name,url;
-	public Channel(String url1,String name) {
+	public Channel(String url1,String name, int i) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.Hosturl=url1;
-		this.url=Hosturl+"/"+name+"/";
+		this.index=i;
+		this.url=Hosturl+name+"/";
 	}
 	volatile int index=2;
 	

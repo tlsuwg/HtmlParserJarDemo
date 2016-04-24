@@ -21,12 +21,14 @@ public class LoadImagePageRunnable implements Runnable {
 	PageMaker mPageMaker = new PageMaker();
 	ImageMaker mImageMaker = new ImageMaker();
 	boolean isRun = true;
+	int loadimagethreadcache;
 
-	public LoadImagePageRunnable(Channel mChannel, Vector<ImageUrl> listForImage) {
+	public LoadImagePageRunnable(Channel mChannel, Vector<ImageUrl> listForImage, int loadimagethreadcache) {
 		// TODO Auto-generated constructor stub
 		this.listForPage = new Vector<>();
 		this.mChannel = mChannel;
 		this.listForImage = listForImage;
+		this.loadimagethreadcache=loadimagethreadcache;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class LoadImagePageRunnable implements Runnable {
 	private void checkImageList() {
 		// TODO Auto-generated method stub
 
-		if (listForImage.size() > 10) {
+		if (listForImage.size() > loadimagethreadcache*3) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -82,7 +84,7 @@ public class LoadImagePageRunnable implements Runnable {
 
 	private void checkPage() {
 		// TODO Auto-generated method stub
-		if (listForPage.size() <= 3) {
+		if (listForPage.size() <= loadimagethreadcache*2) {
 			try {
 				mPageMaker.make(mChannel.getMore(),mChannel, listForPage);
 			} catch (ParserException e) {
